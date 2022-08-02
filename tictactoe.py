@@ -3,6 +3,7 @@ Tic Tac Toe Player
 """
 
 import math
+from random import choice
 from multiprocessing.sharedctypes import Value
 
 X = "X"
@@ -129,11 +130,11 @@ def minimax(board):
             outcome = maxvalue(result(board,action))
         outcomes.add((outcome,action))
     if current_player == X:
-        optimal_outcome = max(outcomes)
+        m = max(outcomes, key=lambda item:item[0])
     else:
-        optimal_outcome = min(outcomes)
-
-    return optimal_outcome[1]
+        m = min(outcomes, key=lambda item:item[0])
+    optimal_outcome = [choice([j for j in outcomes if j[0] == m[0]])]
+    return optimal_outcome[0][1]
     
 
 def maxvalue(board):
